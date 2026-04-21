@@ -6,6 +6,11 @@ create table police_report(
     );
 
     select * from police_report;
+    
+SELECT name, report, LEN(report) as longitud
+FROM police_report
+WHERE report = '' OR report IS NULL;
+select COUNT(*) as conteo_nulls from police_report where report is null;
 
     insert into police_report (name, report, map,severe_score)
     values
@@ -29,3 +34,23 @@ create table police_report(
         ('Svante Mona', 'DC0kGh','Caerleon',5),
         ('Kshitija Ladislav', 'cSA0hA','Caerleon',2),
         ('Ha-Eun Tatiana', 'YNYhHV','Karas Vale',4);
+
+/*Fetch the top 5 severe criminal names and order by severe_score in descending order
+A severe criminal is someone who matches all of the following criteria:
+1-report is either null, or the report contains one of the following letters: g, b, G, or B.
+3.map is one of the following places: Caerleon, Dewsbury, Kirkwall, Findochty.*/
+
+Select TOP 5 name as worst_criminal from police_report
+    where map in ('Caerleon','Dewsbury','Kirkwall','Findochty')
+    and 
+    (report like '%g%'
+    or report like '%G%'
+    or report like '%B%'
+    or report like '%b%'
+    or report IS NULL
+    or report = '')
+    ORDER BY severe_score DESC;
+
+----------------------------------------------------------------------------------------------------------------------------------------
+
+
