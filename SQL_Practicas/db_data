@@ -52,6 +52,7 @@ Select TOP 5 name as worst_criminal from police_report
     ORDER BY severe_score DESC;
 
 ----------------------------------------------------------------------------------------------------------------------------------------
+
 create TABLE beverage(
     id INT,
     current_year INT,
@@ -109,4 +110,7 @@ WHERE
 order by(current_year - expiration_year) DESC
 
 --iMPORTANT TO NOTE THE ID 145 ARE 2 TIMES IN THE TABLE, SO IN SQL SERVER IS APPEAR TO THE END BUT ITS A VALID VALUE
+
+
+
 
