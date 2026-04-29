@@ -2,7 +2,7 @@
 
 ## 🔗 Enlaces del Proyecto
 * **Dashboard Interactivo:** [Haz clic aquí para ver el Dashboard en Looker Studio] https://datastudio.google.com/s/kuYrGATk5pQ
-* **Explicación Técnica (Video):** [Ver video en Loom con el recorrido del proyecto] https://drive.google.com/file/d/16l6hxJmyY8lbFAk6_XeNnyXIKh9iKpLJ/view?usp=drive_link
+* **Explicación Técnica (Video):** [Ver video con el recorrido del proyecto] https://drive.google.com/file/d/16l6hxJmyY8lbFAk6_XeNnyXIKh9iKpLJ/view?usp=drive_link
 * ![Vista Previa del Dashboard](dashboard.png)
 
 ## 📝 Propósito Técnico
