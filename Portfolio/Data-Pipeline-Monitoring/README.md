@@ -4,6 +4,8 @@
 * **Interactive Dashboard:** [View Dashboard in Looker Studio](https://datastudio.google.com/s/kuYrGATk5pQ)
 * **Technical Explanation (Video):** [Watch project walkthrough](https://drive.google.com/file/d/16l6hxJmyY8lbFAk6_XeNnyXIKh9iKpLJ/view?usp=drive_link)
 
+![Dashboard Preview](assets/dashboard.png)
+
 ## 📝 Technical Purpose
 This project demonstrates the ability to structure, clean, and visualize dynamic data flows. The primary focus was ensuring **data integrity** and KPI accuracy by transforming raw data into a reliable, interactive monitoring tool.
 
