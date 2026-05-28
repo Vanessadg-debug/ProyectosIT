@@ -1,24 +1,46 @@
-# Portfolio of Vanessa Diaz
-### QA Engineer | SRE Professional
+# Portfolio of Claudia Vanessa Diaz Garcia
 
-Professional focused on Quality Assurance and Site Reliability Engineering. My work centers on applying engineering best practices, automating repetitive tasks, and validating data integrity to create stable and efficient solutions.
+## QA Engineer | Manual Testing & Automation in Progress
+
+Telematic Engineer with 5+ years of experience in software quality 
+assurance across Fintech, Telecommunications, and Banking. 
+Skilled in functional, regression, exploratory, and integration 
+testing for mobile and web applications. Experienced with API 
+validation (Postman, SOAP/XML), SQL data validation, and defect 
+reporting in Azure DevOps and Jira.
+
+Currently developing automation skills through independent projects 
+in Python, Pandas, Selenium, and SQL.
 
 ---
 
 ## Technical Skills
-* **Databases:** SQL (Schema normalization, complex queries, and data validation).
-* **Automation:** Python, Java (Scripting for support and process automation).
-* **QA & SRE:** Application of quality methodologies, system monitoring, and reliability practices.
+
+- **QA & Testing:** Functional, Regression, Exploratory, 
+  Integration, UAT, Defect Lifecycle, Test Case Documentation
+- **API Testing:** Postman, SOAP/XML, JSON
+- **Data & SQL:** SQL querying, data validation, ERD modeling
+- **Tools:** Azure DevOps, Jira, Git/GitHub
+- **In Progress:** Python, Pandas, ETL pipelines, 
+  Selenium with C#
+
+---
 
 ## Projects in Development
 
-### 1. Data Integrity Analysis (Marketing)
-* **Objective:** SQL-based validation and cleaning of data pipelines.
-* **Status:** Practice and optimization of data schemas.
+### 1. ETL Data Validation Pipeline
+Python + Pandas pipeline to extract, clean, and validate 
+marketing campaign data before database integration.
+Status: In progress — data validation and error handling module.
 
-### 2. Automation & Scripting
-* **Objective:** Developing scripts to improve efficiency in manual tasks.
-* **Tech Stack:** Python.
+### 2. Marketing Campaign Database
+Relational database design including ERD, table architecture, 
+and DDL scripts across 5 entities.
+Status: Structure complete.
 
 ---
-*Repository constantly updated as I continue to develop my technical competencies.*
+
+## Contact
+- LinkedIn: linkedin.com/in/claudiavanessadg  
+- GitHub: github.com/Vanessadg-debug  
+- Location: Querétaro, Mexico
