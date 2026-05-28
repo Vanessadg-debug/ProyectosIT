@@ -33,10 +33,10 @@ Python + Pandas pipeline to extract, clean, and validate
 marketing campaign data before database integration.
 Status: In progress — data validation and error handling module.
 
-### 2. Marketing Campaign Database
+### 2. Marketing Campaign Database — Data Pipeline Monitoring
 Relational database design including ERD, table architecture, 
 and DDL scripts across 5 entities.
-Status: Structure complete.
+Status: Complete.
 
 ---
 
