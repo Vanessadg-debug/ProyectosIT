@@ -4,21 +4,26 @@ import  os
 
 #Declaracion de Variables
 data_list: list[str]=['date','campaign','channel','impressions','total_click','spend','video_views','conversion']
-#file_path =(r'C:\Users\vanec\ProyectosIT\Portfolio\ETL-Data-Validation-Pipeline\assets\hojatest.xlsx')
 current_dir = os.path.dirname(os.path.abspath(__file__))
 
-file_path = os.path.join(current_dir,"assets","hojatest.xlsx")
-
-#Lectura del archivo Excel
-data=pd.read_excel(file_path, sheet_name='TC01')
+file_path = os.path.join(current_dir,"assets","hojat.xlsx")
 
 
+try:
+    data=pd.read_excel(file_path, sheet_name='TC05')
+    print(data)
+except FileNotFoundError:
+    print(f" Oops! The file dos not exist in {file_path}")
+#except ValueError:
 
+
+#data=data.loc[:,~data.columns.str.startswith('Unnamed')]
+#data.drop(columns=data.columns[data.columns.str.startswith('Unnamed')])
 #print(data) imprime los datos de la hoja de la hoja que se subio
 #data.info() imprime que tipo de valores subi por cada columna es decir int64, channel str,date tipo datetime ect
 
 #Evaluando que la primera fila contenga datos validos
-if set(data_list).issubset(data.columns):
+"""if set(data_list).issubset(data.columns):
     
      if data.duplicated().any():
          print("Tus datos estan compeltos pero tienes duplicados revisalos")
@@ -44,6 +49,6 @@ else:
 
 
 #try:
-# if date =! AAAA-MM-DD
+# if date =! AAAA-MM-DD"""
 
 
