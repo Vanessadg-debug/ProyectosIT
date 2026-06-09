@@ -11,7 +11,20 @@ file_path = os.path.join(current_dir,"assets","hojatest.xlsx")
 
 try:
     data=pd.read_excel(file_path, sheet_name='TC05')
-    print("Datos Leidos correctamente")
+       
+    if set(data_list).issubset(data.columns):
+    
+            if data.duplicated().any():
+              print("Tus datos estan compeltos pero tienes duplicados revisalos")
+              sys.exit(1)
+            else:
+                print("Tus datos estan compeltos")
+                data.info()
+
+    else:
+        missing_data= set(data_list)-set(data.columns)
+        print(f"Error critico, faltan los siguientes datos {missing_data}")
+
 except FileNotFoundError:
     print(f" Oops! The file dos not exist in {file_path}")
     sys.exit(1)
@@ -20,19 +33,6 @@ except FileNotFoundError:
 #data.drop(columns=data.columns[data.columns.str.startswith('Unnamed')])
 #print(data) imprime los datos de la hoja de la hoja que se subio
 #data.info() imprime que tipo de valores subi por cada columna es decir int64, channel str,date tipo datetime ect
-
-#Evaluando que la primera fila contenga datos validos
-if set(data_list).issubset(data.columns):
-    
-     if data.duplicated().any():
-         print("Tus datos estan compeltos pero tienes duplicados revisalos")
-         exit()
-     else:
-         print("Tus datos estan compeltos")
-else:
-    columnas_faltantes= set(data_list)-set(data.columns)
-    print(f"Error critico, faltan los siguientes datos {columnas_faltantes}")
-
 
 
 """
