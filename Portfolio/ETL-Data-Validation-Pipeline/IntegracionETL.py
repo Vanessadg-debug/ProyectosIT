@@ -10,7 +10,15 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 file_path = os.path.join(current_dir,"assets","hojatest.xlsx")
 
 try:
-    data=pd.read_excel(file_path, sheet_name='TC05')
+    data=pd.read_excel(file_path, sheet_name='TC02')
+    
+    for index,row in data.iterrows():
+        if set (data_list).issubset(row):
+            header=index+1
+            break
+    print(header)
+
+    data=pd.read_excel(file_path, sheet_name='TC02',header=header)
        
     if set(data_list).issubset(data.columns):
     
