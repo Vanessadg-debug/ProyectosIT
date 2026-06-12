@@ -15,8 +15,12 @@ try:
     if set(data_list).issubset(data.columns):
     
         if data.columns.str.contains(r'\.\d+$').any():
-         print("Tus datos estan compeltos pero tienes duplicados revisalos")
-         sys.exit(1)
+         duplicated= set(data.columns)-set(data_list)
+         dup_list=[]
+         for item in duplicated:
+            dup_list.append(item.split('.')[0])
+         print(f"Los siguientes datos se encuentran duplicados {dup_list}")
+         sys.exit(0) 
         else:
          print("Tus datos estan compeltos")
          data.info()
