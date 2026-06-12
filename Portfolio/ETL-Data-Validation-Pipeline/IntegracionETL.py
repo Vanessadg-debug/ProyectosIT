@@ -10,28 +10,31 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 file_path = os.path.join(current_dir,"assets","hojatest.xlsx")
 
 try:
-    data=pd.read_excel(file_path, sheet_name='TC02')
+    data=pd.read_excel(file_path, sheet_name='TC09')
     
-    for index,row in data.iterrows():
-        if set (data_list).issubset(row):
-            header=index+1
-            break
-    print(header)
-
-    data=pd.read_excel(file_path, sheet_name='TC02',header=header)
-       
     if set(data_list).issubset(data.columns):
     
-            if data.duplicated().any():
-              print("Tus datos estan compeltos pero tienes duplicados revisalos")
-              sys.exit(1)
-            else:
-                print("Tus datos estan compeltos")
-                data.info()
+        if data.columns.str.contains(r'\.\d+$').any():
+         print("Tus datos estan compeltos pero tienes duplicados revisalos")
+         sys.exit(1)
+        else:
+         print("Tus datos estan compeltos")
+         data.info()
 
     else:
-        missing_data= set(data_list)-set(data.columns)
-        print(f"Error critico, faltan los siguientes datos {missing_data}")
+            for index,row in data.iterrows():
+                if set (data_list).issubset(row):
+                 header=index+1
+                 print(header)
+                break
+            else:   
+                 missing_data= set(data_list)-set(data.columns)
+                 print(f"Error critico, faltan los siguientes datos {missing_data}")
+         #data=pd.read_excel(file_path, sheet_name='TC06',header=header)
+         #data = data.loc[:, ~data.columns.str.contains('^Unnamed')] 
+
+            missing_data= set(data_list)-set(data.columns)
+            print(f"Error critico, faltan los siguientes datos {missing_data}")
 
 except FileNotFoundError:
     print(f" Oops! The file dos not exist in {file_path}")
