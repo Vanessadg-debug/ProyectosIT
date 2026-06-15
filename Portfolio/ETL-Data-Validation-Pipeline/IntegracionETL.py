@@ -1,6 +1,6 @@
 
 import pandas as pd
-import  os
+import os
 import sys
 
 #Declaracion de Variables
@@ -10,10 +10,29 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 file_path = os.path.join(current_dir,"assets","hojatest.xlsx")
 
 try:
-    data=pd.read_excel(file_path, sheet_name='TC09')
+    data=pd.read_excel(file_path, sheet_name='TC11')
     
     if set(data_list).issubset(data.columns):
-    
+        if data.columns.str.contains(r'\.\d+$').any():
+         duplicated= set(data.columns)-set(data_list)
+         dup_list=[]
+         for item in duplicated:
+            dup_list.append(item.split('.')[0])
+         print(f"Los siguientes datos se encuentran duplicados {dup_list}")
+         sys.exit(0) 
+        else:
+         print("Tus datos estan compeltos")
+         data.info()
+        
+    else:
+        header=0   
+        for index,row in data.iterrows():
+             
+            if set (data_list).issubset(row.values):
+             header = index+1
+             break                     
+        data=pd.read_excel(file_path, sheet_name='TC11',header=header) 
+
         if data.columns.str.contains(r'\.\d+$').any():
          duplicated= set(data.columns)-set(data_list)
          dup_list=[]
@@ -25,20 +44,17 @@ try:
          print("Tus datos estan compeltos")
          data.info()
 
-    else:
-            for index,row in data.iterrows():
-                if set (data_list).issubset(row):
-                 header=index+1
-                 print(header)
-                break
-            else:   
+                 
+        """else:   
                  missing_data= set(data_list)-set(data.columns)
                  print(f"Error critico, faltan los siguientes datos {missing_data}")
-         #data=pd.read_excel(file_path, sheet_name='TC06',header=header)
-         #data = data.loc[:, ~data.columns.str.contains('^Unnamed')] 
-
-            missing_data= set(data_list)-set(data.columns)
-            print(f"Error critico, faltan los siguientes datos {missing_data}")
+                 sys.exit(1)
+            print(header)
+            data=pd.read_excel(file_path, sheet_name='TC11',header=header)
+            print(data)
+            #data = data.loc[:, ~data.columns.str.contains('^Unnamed')] 
+            #missing_data= set(data_list)-set(data.columns)
+            #print(f"Error critico, faltan los siguientes datos {missing_data}")"""
 
 except FileNotFoundError:
     print(f" Oops! The file dos not exist in {file_path}")
