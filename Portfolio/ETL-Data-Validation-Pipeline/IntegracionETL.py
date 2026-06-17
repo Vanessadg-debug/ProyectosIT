@@ -10,7 +10,7 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 file_path = os.path.join(current_dir,"assets","hojatest.xlsx")
 
 try:
-    data=pd.read_excel(file_path, sheet_name='TC11')
+    data=pd.read_excel(file_path, sheet_name='TC12C')
     
     if set(data_list).issubset(data.columns):
         if data.columns.str.contains(r'\.\d+$').any():
@@ -25,25 +25,35 @@ try:
          data.info()
         
     else:
+        found=False
         header=0   
         for index,row in data.iterrows():
              
-            if set (data_list).issubset(row.values):
+            if len(set(data_list).intersection(row.values)) / len(data_list) > 0.5:
              header = index+1
-             break                     
-        data=pd.read_excel(file_path, sheet_name='TC11',header=header) 
-
-        if data.columns.str.contains(r'\.\d+$').any():
-         duplicated= set(data.columns)-set(data_list)
-         dup_list=[]
-         for item in duplicated:
-            dup_list.append(item.split('.')[0])
-         print(f"Los siguientes datos se encuentran duplicados {dup_list}")
-         sys.exit(0) 
+             found=True
+             break   
+        if found:                      
+            data=pd.read_excel(file_path, sheet_name='TC12C',header=header) 
+            if set(data_list).issubset(data.columns):
+                if data.columns.str.contains(r'\.\d+$').any():
+                    duplicated= set(data.columns)-set(data_list)
+                    dup_list=[]
+                    for item in duplicated:
+                        dup_list.append(item.split('.')[0])
+                    print(f"Los siguientes datos se encuentran duplicados {dup_list}")
+                    sys.exit(0) 
+                else:
+                    print("Tus datos estan compeltos")
+                    data.info()
+            else:
+                missing_data= set(data_list)-set(data.columns)
+                print(f"Error critico: faltan los siguientes datos {missing_data}")
+                sys.exit(1)
         else:
-         print("Tus datos estan compeltos")
-         data.info()
-
+            print(f"Error critico:no se encontró ninguna fila con suficientes encabezados. Revisa tu archivo.")
+            sys.exit(1)
+           
                  
         """else:   
                  missing_data= set(data_list)-set(data.columns)
