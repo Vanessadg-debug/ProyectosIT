@@ -23,10 +23,18 @@ try:
         else:
          print("Tus datos estan compeltos")
          data.info()
-        
-    else:
+
+    elif len(set(data_list).intersection(data.columns)) / len(data_list) > 0:
+       missing_data= set(data_list)-set(data.columns)
+       print(f"Error critico: faltan los siguientes datos {missing_data}")
+       data.info()
+       sys.exit(1)
+
+    elif data.columns.str.startswith('Unnamed').all():
+     
         found=False
-        header=0   
+        header=0 
+        print("elif starts")  
         for index,row in data.iterrows():
              
             if len(set(data_list).intersection(row.values)) / len(data_list) > 0.5:
@@ -53,19 +61,12 @@ try:
         else:
             print(f"Error critico:no se encontró ninguna fila con suficientes encabezados. Revisa tu archivo.")
             sys.exit(1)
-           
-                 
-        """else:   
-                 missing_data= set(data_list)-set(data.columns)
-                 print(f"Error critico, faltan los siguientes datos {missing_data}")
-                 sys.exit(1)
-            print(header)
-            data=pd.read_excel(file_path, sheet_name='TC11',header=header)
-            print(data)
-            #data = data.loc[:, ~data.columns.str.contains('^Unnamed')] 
-            #missing_data= set(data_list)-set(data.columns)
-            #print(f"Error critico, faltan los siguientes datos {missing_data}")"""
-
+    else:
+        if len(set(data_list).intersection(data.columns)) / len(data_list) == 0:
+            missing_data= set(data_list)-set(data.columns)
+            print(f"Error critico: faltan los siguientes datos {missing_data}")
+            sys.exit(1)
+         
 except FileNotFoundError:
     print(f" Oops! The file dos not exist in {file_path}")
     sys.exit(1)
