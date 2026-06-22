@@ -10,31 +10,37 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 file_path = os.path.join(current_dir,"assets","hojatest.xlsx")
 
 try:
-    data=pd.read_excel(file_path, sheet_name='TC12C')
+    data=pd.read_excel(file_path, sheet_name='TC16')
     
     if set(data_list).issubset(data.columns):
         if data.columns.str.contains(r'\.\d+$').any():
-         duplicated= set(data.columns)-set(data_list)
-         dup_list=[]
-         for item in duplicated:
-            dup_list.append(item.split('.')[0])
-         print(f"Los siguientes datos se encuentran duplicados {dup_list}")
-         sys.exit(0) 
+            duplicated= set(data.columns)-set(data_list)
+            dup_list=[]
+            for item in duplicated:
+                dup_list.append(item.split('.')[0])
+            print(f"Los siguientes datos se encuentran duplicados {dup_list}")
+            sys.exit(0)
+
         else:
-         print("Tus datos estan compeltos")
-         data.info()
+            trash_columns = set(data.columns) - set(data_list)
+            lista_basura = list(trash_columns)
+            if trash_columns:
+             print(f"Se encontraron columas adicionales {trash_columns}, estas seran eliminadas")
+             data = data[data_list]
+            print("Tus datos estan compeltos")
+            data.info()
 
     elif len(set(data_list).intersection(data.columns)) / len(data_list) > 0:
        missing_data= set(data_list)-set(data.columns)
        print(f"Error critico: faltan los siguientes datos {missing_data}")
        data.info()
-       sys.exit(1)
+       sys.exit(0)
 
     elif data.columns.str.startswith('Unnamed').all():
      
         found=False
         header=0 
-        print("elif starts")  
+         
         for index,row in data.iterrows():
              
             if len(set(data_list).intersection(row.values)) / len(data_list) > 0.5:
@@ -42,7 +48,8 @@ try:
              found=True
              break   
         if found:                      
-            data=pd.read_excel(file_path, sheet_name='TC12C',header=header) 
+            data=pd.read_excel(file_path, sheet_name='TC16',header=header)
+
             if set(data_list).issubset(data.columns):
                 if data.columns.str.contains(r'\.\d+$').any():
                     duplicated= set(data.columns)-set(data_list)
@@ -52,6 +59,11 @@ try:
                     print(f"Los siguientes datos se encuentran duplicados {dup_list}")
                     sys.exit(0) 
                 else:
+                    trash_columns = set(data.columns) - set(data_list)
+                    lista_basura = list(trash_columns)
+                    if trash_columns:
+                     print(f"Se encontraron columas adicionales {trash_columns}, estas seran eliminadas")
+                     data = data[data_list]
                     print("Tus datos estan compeltos")
                     data.info()
             else:
