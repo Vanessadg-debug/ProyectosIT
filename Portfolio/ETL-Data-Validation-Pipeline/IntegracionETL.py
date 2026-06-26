@@ -3,6 +3,11 @@ import pandas as pd
 import os
 import sys
 
+
+
+
+
+
 #Declaracion de Variables
 data_list: list[str]=['date','campaign','channel','impressions','total_click','spend','video_views','conversion']
 current_dir = os.path.dirname(os.path.abspath(__file__))
