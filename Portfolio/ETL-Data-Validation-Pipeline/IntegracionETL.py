@@ -2,20 +2,44 @@
 import pandas as pd
 import os
 import sys
-
-
-
-
-
-
-#Declaracion de Variables
+file_name="hojatest.xlsx"
+sheet_name="TC06"
+rows=50
 data_list: list[str]=['date','campaign','channel','impressions','total_click','spend','video_views','conversion']
 current_dir = os.path.dirname(os.path.abspath(__file__))
 
-file_path = os.path.join(current_dir,"assets","hojatest.xlsx")
+file_path = os.path.join(current_dir,"assets",file_name)
+data=pd.read_excel(file_path, sheet_name=sheet_name, nrows=rows)
+
+def read_header(data):
+    header_found=False
+    coincidencia=0
+    max_coincidencia=0
+    header=0
+
+    for index,row in data.iterrows():
+        coincidencia = (len(set(data_list).intersection(row.values)) / len(data_list))*100
+        if coincidencia>0:
+            if coincidencia==100:
+                header_found=True
+                header=index
+                max_coincidencia=coincidencia
+                break
+            else:
+                if coincidencia > max_coincidencia:
+                 max_coincidencia=coincidencia
+                 header_found=True
+                 header=index    
+        
+    return header, header_found
+        
+header,_=read_header(data)
+data=pd.read_excel(file_path, sheet_name=sheet_name,header=header)
+print(header)
+data.info()
 
 try:
-    data=pd.read_excel(file_path, sheet_name='TC16')
+    
     
     if set(data_list).issubset(data.columns):
         if data.columns.str.contains(r'\.\d+$').any():
@@ -35,7 +59,7 @@ try:
             print("Tus datos estan compeltos")
             data.info()
 
-    elif len(set(data_list).intersection(data.columns)) / len(data_list) > 0:
+    elif len(set(data_list).intersection(data.columns)) / len(data_list) > 0:#added
        missing_data= set(data_list)-set(data.columns)
        print(f"Error critico: faltan los siguientes datos {missing_data}")
        data.info()
@@ -53,7 +77,7 @@ try:
              found=True
              break   
         if found:                      
-            data=pd.read_excel(file_path, sheet_name='TC16',header=header)
+            data=pd.read_excel(file_path, sheet_name=sheet_name,header=header)
 
             if set(data_list).issubset(data.columns):
                 if data.columns.str.contains(r'\.\d+$').any():
@@ -87,6 +111,9 @@ try:
 except FileNotFoundError:
     print(f" Oops! The file dos not exist in {file_path}")
     sys.exit(1)
+
+
+
 
 #data=data.loc[:,~data.columns.str.startswith('Unnamed')]
 #data.drop(columns=data.columns[data.columns.str.startswith('Unnamed')])
