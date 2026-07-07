@@ -4,7 +4,7 @@ import os
 import sys
 from collections import Counter
 file_name="hojatest.xlsx"
-sheet_name="TC20"
+sheet_name="TC14"
 rows=50
 data_list: list[str]=['date','campaign','channel','impressions','total_click','spend','video_views','conversion']
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -42,8 +42,7 @@ print(f" valor de Header found {header_found}")
 print(f"posicion de header {header}")
 print(f"Valor de max coincidencia {max_coincidencia}")
 data= pd.read_excel(file_path, sheet_name=sheet_name,header=None, skiprows=header, nrows=1).iloc[0].tolist()
-#data=pd.read_excel(file_path, sheet_name=sheet_name,header=header)
-#print(header)
+
 #data.info()
 print (f"El valor de data transformado a lista es {data}")
 def header_filter(data):
@@ -54,7 +53,8 @@ def header_filter(data):
         if  value in data_list:
             clean_data.append(value)
         else:
-            trash_data.append(value)
+            if not pd.isna(value):
+                trash_data.append(value)
     
     if trash_data:
         is_clean=False
