@@ -4,16 +4,15 @@ import os
 import sys
 from collections import Counter
 file_name="hojatest.xlsx"
-sheet_name="TC09"
+sheet_name="TC17"
 rows=50
+data_list: list[str]=['date','campaign','channel','impressions','total_click','spend','video_views','conversion']
 current_dir = os.path.dirname(os.path.abspath(__file__))
 
 file_path = os.path.join(current_dir,"assets",file_name)
 data=pd.read_excel(file_path, sheet_name=sheet_name,header=None, nrows=rows)
 
 def read_header(data):
-    data_list: list[str]=['date','campaign','channel','impressions','total_click','spend','video_views','conversion']
-
     header_found=False
     coincidencia=0
     max_coincidencia=0
@@ -22,6 +21,7 @@ def read_header(data):
     for index,row in data.iterrows():
         coincidencia = (len(set(data_list).intersection(row.values)) / len(data_list))*100
         if coincidencia>0:
+            
             if coincidencia==100:
                 header_found=True
                 header=index
@@ -32,17 +32,16 @@ def read_header(data):
                  max_coincidencia=coincidencia
                  header_found=True
                  header=index   
-        else:
-            print("No se encontro ninguna coincidencia de header") 
-            sys.exit(1)
+    if not header_found:
+        print("No se encontro header de coincidencia")
+        sys.exit(1)
         
     return header, header_found,max_coincidencia
 header,header_found,max_coincidencia=read_header(data)
 print(f" valor de Header found {header_found}")
 print(f"posicion de header {header}")
 print(f"Valor de max coincidencia {max_coincidencia}")
-
-data= pd.read_excel(file_path, header=None, skiprows=header, nrows=1).iloc[0].tolist()
+data= pd.read_excel(file_path, sheet_name=sheet_name,header=None, skiprows=header, nrows=1).iloc[0].tolist()
 #data=pd.read_excel(file_path, sheet_name=sheet_name,header=header)
 #print(header)
 #data.info()
