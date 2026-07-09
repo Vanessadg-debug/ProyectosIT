@@ -4,7 +4,7 @@ import os
 import sys
 from collections import Counter
 file_name="hojatest.xlsx"
-sheet_name="TC14"
+sheet_name="TC21"
 rows=50
 data_list: list[str]=['date','campaign','channel','impressions','total_click','spend','video_views','conversion']
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -19,7 +19,8 @@ def read_header(data):
     header=0
 
     for index,row in data.iterrows():
-        coincidencia = (len(set(data_list).intersection(row.values)) / len(data_list))*100
+        dato = [str(elemento).lower().strip() for elemento in row.values]
+        coincidencia = (len(set(data_list).intersection(dato)) / len(data_list))*100
         if coincidencia>0:
             
             if coincidencia==100:

@@ -15,3 +15,11 @@ función contar_duplicados(clean_data):
         si valor > 1:
             agregar llave a duplicados
     regresar duplicados
+
+    Pendiente: normalización en header_filter
+1. Si pd.isna(value) → ignorar (comportamiento actual, sin cambios)
+2. Si NO es NaN → aplicar str(value).lower().strip()
+3. Comparar valor ya normalizado contra data_list
+Razón: TC21 (headers en mayúsculas) ya funciona en read_header,
+pero falla en header_filter porque la normalización no se propaga
+tras la relectura del archivo.
