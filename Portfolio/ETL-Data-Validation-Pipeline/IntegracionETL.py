@@ -51,12 +51,16 @@ def header_filter(data):
     trash_data=[]
     clean_data=[]
     for value in data:
-        if  value in data_list:
-            clean_data.append(value)
+
+        if pd.isna(value):
+            pass
         else:
-            if not pd.isna(value):
-                trash_data.append(value)
-    
+            dato=str(value).lower().strip() 
+            if  dato in data_list:
+               clean_data.append(dato)
+            else:
+                trash_data.append(dato)
+                
     if trash_data:
         is_clean=False
 
