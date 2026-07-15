@@ -4,7 +4,7 @@ import os
 import sys
 from collections import Counter
 file_name="hojatest.xlsx"
-sheet_name="TC21"
+sheet_name="TC25"
 rows=50
 data_list: list[str]=['date','campaign','channel','impressions','total_click','spend','video_views','conversion']
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -71,6 +71,17 @@ print(f"Valor de trash data {trash_data}")
 print(f"Valor de clean data lista {clean_data}")
 
 print(f"Valor de clean data lista entrando a validacion de duplicados{clean_data}")
+
+def missing_header(clean_data):
+    missing_data=False
+    missing=set(data_list) - set(clean_data)
+    if missing:
+        missing_data=True
+        
+    return  missing_data,missing
+missing_data,missing=missing_header(clean_data)
+print(f"Faltan los siguientes datos {missing}")
+
 def duplicated(clean_data):
     is_duplicated=False
     conteo=Counter(clean_data)
