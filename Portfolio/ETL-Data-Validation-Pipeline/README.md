@@ -21,17 +21,17 @@ The database schema was designed following Third Normal Form (3NF) principles to
 
 ### Project Status
 
-- [x] Architecture design and relational model.
-- [x] Database schema implementation (DDL).
-- [x] Header validation logic.
-    - [x] Missing headers (full and partial detection)
-    - [x] Duplicate header detection
-    - [x] Vertical/Horizontal offsets
-    - [x] Automatic cleanup of extraneous columns
-- [/] **Refactor in Progress (Frankenstein case):**
-    - Logic mapped in `docs/D2_Header_Analize_2.drawio`.
-    - Implementation of consolidated decision-logic (OR-based validation) pending.
-- [ ] Database integration of validated data.
+* Architecture design and relational model.
+* Database schema implementation (DDL).
+* Header validation logic.
+   * Missing headers (full and partial detection)
+   * Duplicate header detection
+   * Vertical/Horizontal offsets
+   * Automatic cleanup of extraneous columns
+* Refactor from spaghetti if/elif/else logic into modular functions — completed and validated, including the combined "Frankenstein case" (TC19).
+* Parameterized file/sheet loading (`load_sheet_data`) — completed.
+* [/] Orchestrator function to chain all validation logic (load → header detection → filter → missing/duplicate check) — in progress.
+* Database integration of validated data.
 
 All test cases are self-designed using a combinatorial decision-table approach, and the suite is continuously updated as new edge cases are identified.
 
