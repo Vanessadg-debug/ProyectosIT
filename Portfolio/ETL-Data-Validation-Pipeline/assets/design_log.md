@@ -23,3 +23,9 @@ función contar_duplicados(clean_data):
 Razón: TC21 (headers en mayúsculas) ya funciona en read_header,
 pero falla en header_filter porque la normalización no se propaga
 tras la relectura del archivo.
+
+Pendiente: evaluar si missing_header debería aplicar también 
+cuando read_header no encuentra ninguna coincidencia (actualmente 
+el sys.exit() corta antes de llegar ahí). Sin resolver aún - 
+requiere pensar si el caso es "cero coincidencia total" o 
+"baja coincidencia con detalle de qué falta".
