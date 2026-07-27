@@ -3,14 +3,16 @@ import pandas as pd
 import os
 import sys
 from collections import Counter
-file_name="hojatest.xlsx"
-sheet_name="TC25"
-rows=50
-data_list: list[str]=['date','campaign','channel','impressions','total_click','spend','video_views','conversion']
-current_dir = os.path.dirname(os.path.abspath(__file__))
 
-file_path = os.path.join(current_dir,"assets",file_name)
-data=pd.read_excel(file_path, sheet_name=sheet_name,header=None, nrows=rows)
+data_list: list[str]=['date','campaign','channel','impressions','total_click','spend','video_views','conversion']
+
+def load_sheet_data(file_name,sheet_name,rows):
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    file_path = os.path.join(current_dir,"assets",file_name)
+    data=pd.read_excel(file_path, sheet_name=sheet_name,header=None, nrows=rows)
+
+    return data
+data=load_sheet_data("hojatest.xlsx", "TC25", 50)
 
 def read_header(data):
     header_found=False
@@ -42,10 +44,10 @@ header,header_found,max_coincidencia=read_header(data)
 print(f" valor de Header found {header_found}")
 print(f"posicion de header {header}")
 print(f"Valor de max coincidencia {max_coincidencia}")
-data= pd.read_excel(file_path, sheet_name=sheet_name,header=None, skiprows=header, nrows=1).iloc[0].tolist()
+header_list= data.iloc[header].tolist()
 
 #data.info()
-print (f"El valor de data transformado a lista es {data}")
+print (f"El valor de data transformado a lista es {header_list}")
 def header_filter(data):
     is_clean=True
     trash_data=[]
@@ -65,7 +67,7 @@ def header_filter(data):
         is_clean=False
 
     return is_clean,trash_data,clean_data
-is_clean,trash_data,clean_data=header_filter(data)
+is_clean,trash_data,clean_data=header_filter(header_list)
 print(f"Valor de is clean {is_clean}")
 print(f"Valor de trash data {trash_data}")
 print(f"Valor de clean data lista {clean_data}")
