@@ -47,6 +47,7 @@ header_list= data.iloc[header].tolist()
 
 #data.info()
 print (f"El valor de data transformado a lista es {header_list}")
+
 def header_filter(data):
     is_clean=True
     trash_data=[]
@@ -97,6 +98,21 @@ def duplicated(clean_data):
 is_duplicated,dup_list=duplicated(clean_data)
 print(f"Valor de si es duplicados boleano es {is_duplicated}")
 print(f"Valor de cuantos hay duplicados en la lista es {dup_list}")
+
+
+def orquestador(file_name,sheet_name,rows):
+    data_sheet=load_sheet_data(file_name,sheet_name,rows)
+    header, header_found,max_coincidencia=read_header(data_sheet)
+
+    if header_found:
+        header_list= data_sheet.iloc[header].tolist()
+        is_clean,trash_data,clean_data=header_filter(header_list)
+        missing_data,missing=missing_header(clean_data)
+        is_duplicated,dup_list=duplicated(clean_data)
+    else:
+        missing_data,missing=missing_header([])
+    
+    return 
 
 """"
 try:         
