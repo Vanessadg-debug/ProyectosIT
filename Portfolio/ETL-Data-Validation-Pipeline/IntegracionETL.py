@@ -12,7 +12,7 @@ def load_sheet_data(file_name,sheet_name,rows):
     data=pd.read_excel(file_path, sheet_name=sheet_name,header=None, nrows=rows)
 
     return data
-data=load_sheet_data("hojatest.xlsx", "TC25", 50)
+#data=load_sheet_data("hojatest.xlsx", "TC25", 50)
 
 def read_header(data):
     header_found=False
@@ -39,14 +39,14 @@ def read_header(data):
         pass
         
     return header, header_found,max_coincidencia
-header,header_found,max_coincidencia=read_header(data)
-print(f" valor de Header found {header_found}")
-print(f"posicion de header {header}")
-print(f"Valor de max coincidencia {max_coincidencia}")
-header_list= data.iloc[header].tolist()
+#header,header_found,max_coincidencia=read_header(data)
+#print(f" valor de Header found {header_found}")
+#print(f"posicion de header {header}")
+#print(f"Valor de max coincidencia {max_coincidencia}")
+#header_list= data.iloc[header].tolist()
 
 #data.info()
-print (f"El valor de data transformado a lista es {header_list}")
+#print (f"El valor de data transformado a lista es {header_list}")
 
 def header_filter(data):
     is_clean=True
@@ -67,12 +67,12 @@ def header_filter(data):
         is_clean=False
 
     return is_clean,trash_data,clean_data
-is_clean,trash_data,clean_data=header_filter(header_list)
-print(f"Valor de is clean {is_clean}")
-print(f"Valor de trash data {trash_data}")
-print(f"Valor de clean data lista {clean_data}")
+#is_clean,trash_data,clean_data=header_filter(header_list)
+#print(f"Valor de is clean {is_clean}")
+#print(f"Valor de trash data {trash_data}")
+#print(f"Valor de clean data lista {clean_data}")
 
-print(f"Valor de clean data lista entrando a validacion de duplicados{clean_data}")
+#print(f"Valor de clean data lista entrando a validacion de duplicados{clean_data}")
 
 def missing_header(clean_data):
     missing_data=False
@@ -81,8 +81,8 @@ def missing_header(clean_data):
         missing_data=True
         
     return  missing_data,missing
-missing_data,missing=missing_header(clean_data)
-print(f"Faltan los siguientes datos {missing}")
+#missing_data,missing=missing_header(clean_data)
+#print(f"Faltan los siguientes datos {missing}")
 
 def duplicated(clean_data):
     is_duplicated=False
@@ -95,9 +95,9 @@ def duplicated(clean_data):
             is_duplicated=True
     return is_duplicated, dup_list
 
-is_duplicated,dup_list=duplicated(clean_data)
-print(f"Valor de si es duplicados boleano es {is_duplicated}")
-print(f"Valor de cuantos hay duplicados en la lista es {dup_list}")
+#is_duplicated,dup_list=duplicated(clean_data)
+#print(f"Valor de si es duplicados boleano es {is_duplicated}")
+#print(f"Valor de cuantos hay duplicados en la lista es {dup_list}")
 
 
 def orquestador(file_name,sheet_name,rows):
@@ -109,10 +109,16 @@ def orquestador(file_name,sheet_name,rows):
         is_clean,trash_data,clean_data=header_filter(header_list)
         missing_data,missing=missing_header(clean_data)
         is_duplicated,dup_list=duplicated(clean_data)
+        return header_list,is_clean,trash_data,clean_data,missing_data,missing,is_duplicated,dup_list
     else:
         missing_data,missing=missing_header([])
+        return missing_data,missing
     
-    return 
+final_data06=orquestador("hojatest.xlsx", "TC06", 50)    
+final_data07=orquestador("hojatest.xlsx", "TC07", 50)    
+
+print(f"Datos finales de TC06 {final_data06}")
+print(f"Datos finales DE TC07 {final_data07}")
 
 """"
 try:         
