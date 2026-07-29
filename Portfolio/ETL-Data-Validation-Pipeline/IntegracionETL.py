@@ -36,8 +36,7 @@ def read_header(data):
                  header_found=True
                  header=index   
     if not header_found:
-        print("No se encontro header de coincidencia")
-        sys.exit(1)
+        pass
         
     return header, header_found,max_coincidencia
 header,header_found,max_coincidencia=read_header(data)
